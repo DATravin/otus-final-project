@@ -5,7 +5,7 @@ __pycache__
 *.log
 *.csv
 *.parquet
-*.json
+#*.json
 terraform.tfvars
 *.tfstate
 *.tfstate.backup
