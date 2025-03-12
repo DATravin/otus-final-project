@@ -99,14 +99,14 @@ setup_airflow_connections(YC_S3_CONNECTION, YC_SA_CONNECTION)
 
 # Настройки DAG
 with DAG(
-    dag_id="btc_ml_model",
+    dag_id="btc_two_step",
     start_date=datetime(year=2024, month=1, day=20),
     schedule_interval=timedelta(minutes=60*24),
     catchup=False,
 ) as ingest_dag:
     # 1 этап: создание Dataproc клаcтера
     create_spark_cluster = DataprocCreateClusterOperator(
-        task_id="dp-cluster-create-task",
+        task_id="dp-cluster-create-task1",
         folder_id=YC_FOLDER_ID,
         cluster_name=f"tmp-dp-{uuid.uuid4()}",
         cluster_description="Temporary cluster for Spark processing under Airflow orchestration",
@@ -132,8 +132,23 @@ with DAG(
         dag=ingest_dag,
     )
     # 2 этап: запуск задания PySpark
-    poke_spark_processing = DataprocCreatePysparkJobOperator(
-        task_id="dp-cluster-pyspark-task",
+    data_spark_processing = DataprocCreatePysparkJobOperator(
+        task_id="dp-cluster-create-task2",
+        main_python_file_uri=f"s3a://{S3_SOURCE_BUCKET}/src/feature_generation.py",
+        connection_id=YC_SA_CONNECTION.conn_id,
+        properties = {'spark.submit.deployMode': 'cluster',
+                    'spark.yarn.dist.archives': f's3a://{S3_BUCKET_NAME_COLD}/venvs/btc_venv_pack2.tar.gz#venv1',
+                    'spark.yarn.appMasterEnv.PYSPARK_PYTHON': './venv1/bin/python',
+                    'spark.yarn.appMasterEnv.PYSPARK_DRIVER_PYTHON': './venv1/bin/python'},
+        python_file_uris =[f"s3a://{S3_SOURCE_BUCKET}/src/bit_functions.py",
+                            f"s3a://{S3_SOURCE_BUCKET}/src/classes.py",
+                            f"s3a://{S3_SOURCE_BUCKET}/src/config_btc.py"],
+        #args=["--bucket", S3_BUCKET_NAME_COLD],
+        dag=ingest_dag,
+    )
+    # 3 этап: запуск задания PySpark
+    model_spark_processing = DataprocCreatePysparkJobOperator(
+        task_id="dp-cluster-create-task3",
         main_python_file_uri=f"s3a://{S3_SOURCE_BUCKET}/src/model_optimisation.py",
         connection_id=YC_SA_CONNECTION.conn_id,
         properties = {'spark.submit.deployMode': 'cluster',
@@ -159,4 +174,4 @@ with DAG(
     )
     # Формирование DAG из указанных выше этапов
     # pylint: disable=pointless-statement
-    create_spark_cluster >> poke_spark_processing >> delete_spark_cluster
+    create_spark_cluster >> data_spark_processing >> model_spark_processing >> delete_spark_cluster

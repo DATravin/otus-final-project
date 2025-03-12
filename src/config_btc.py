@@ -17,9 +17,9 @@ col_fin_dw_1h - для модели 1H short
 
 
 MODEL_PARAMS_UP_4H - параметры модельки для long 4H
-MODEL_PARAMS_DW_4H - параметры модельки для short 4H 
+MODEL_PARAMS_DW_4H - параметры модельки для short 4H
 MODEL_PARAMS_UP_1H - параметры модельки для long 1H
-MODEL_PARAMS_DW_1H - параметры модельки для short 1H 
+MODEL_PARAMS_DW_1H - параметры модельки для short 1H
 
 
 
@@ -33,6 +33,255 @@ MODEL_PARAMS_DW_1H - параметры модельки для short 1H
 
 
 '''
+
+
+cols_before_selection = ['MA10_REL_shift6_cross',
+ 'EMA100_REL',
+ 'EMA60_REL_shift12_cross',
+ 'MACDHist_REL_shift7',
+ 'Close_15_to_MA15',
+ 'MA10_REL_shift1_cross',
+ 'MA15_REL_shift1',
+ 'MA100_REL_shift12',
+ 'EMA200_REL_shift12_cross',
+ 'Close_9_to_10',
+ 'MACDHist_REL',
+ 'EMA32_REL_shift1',
+ 'RSI9_up_70_perman',
+ 'EMA20_REL_shift6_cross',
+ 'MA10_REL_shift6',
+ 'EMA26_REL_shift24_cross',
+ 'EMA75_REL_shift24',
+ 'EMA200_REL_shift24_cross',
+ 'RSI9_dw_20_perman',
+ 'EMA75_REL_shift6',
+ 'EMA75_REL_shift1_cross',
+ 'MA20_REL_shift12_cross',
+ 'EMA12_REL_shift12',
+ 'ROC200sm',
+ 'EMA32_REL_shift6',
+ 'MA75_REL_shift6_cross',
+ 'MACDHist_corr_roll_mean3_shift1',
+ 'Close_10_to_MA15',
+ 'Close_0_to_4',
+ 'RSI14_up_80',
+ 'MA150_REL_shift1',
+ 'EMA26_REL',
+ 'EMA26_REL_shift12',
+ 'std_20_rel',
+ 'Close_4_to_MA15',
+ 'RSI14_dw_30',
+ 'EMA20_REL_shift24',
+ 'Close_3_to_4',
+ 'MA50_REL_shift24_cross',
+ 'EMA14_REL_shift24_cross',
+ 'MA10_REL_shift1',
+ 'AweOs_cor_roll_mean3',
+ 'AweOs_corr_1_to_3',
+ 'MA150_REL_shift6_cross',
+ 'RSI20_up_70_perman',
+ 'MACDHist_corr_roll_mean3_shift6',
+ 'Close_5_to_MA15',
+ 'EMA150_REL_shift6',
+ 'RSI27_dw_20',
+ 'MA10_REL_shift12_cross',
+ 'EMA38_REL_shift6',
+ 'EMA32_REL_shift1_cross',
+ 'RSI20_up_80',
+ 'Close_m3_2_to_MA15',
+ 'Close_m3_6_to_MA15',
+ 'RSI27_dw_30',
+ 'AweOs_corr_3_to_6',
+ 'EMA32_REL_shift12_cross',
+ 'MA5_REL_shift24_cross',
+ 'EMA12_REL',
+ 'MACDHist_corr_1_to_3',
+ 'EMA44_REL_shift6_cross',
+ 'MACDHist_corr',
+ 'AweOs_cor_roll_mean3_shift6',
+ 'level_close_act_w',
+ 'RSI14_dw_20_perman',
+ 'MA5_REL_shift24',
+ 'MA20_REL_shift6',
+ 'Close_6_to_MA15',
+ 'EMA38_REL_shift12',
+ 'MA5_REL_shift12',
+ 'Close_8_to_MA15',
+ 'EMA100_REL_shift24',
+ 'EMA8_REL_shift24_cross',
+ 'MA5_REL_shift6_cross',
+ 'Close_7_to_8',
+ 'MA20_REL_shift1',
+ 'MA5_REL_shift12_cross',
+ 'EMA_gor_1_REL_cross_all',
+ 'RSI20_dw_20_perman',
+ 'AweOs_cor',
+ 'MA200_REL_shift12',
+ 'RSI9_up_80',
+ 'MACDHist_REL_shift3',
+ 'EMA200_REL_shift1_cross',
+ 'RSI9_dw_30_perman',
+ 'EMA44_REL_shift24',
+ 'MA5_REL',
+ 'MA100_REL_shift12_cross',
+ 'EMA8_REL',
+ 'RSI14_up_70_perman',
+ 'MA10_REL_shift24',
+ 'Close_13_to_MA15',
+ 'MACDHist_corr_3_to_6',
+ 'MA5_REL_shift6',
+ 'RSI27_up_70_perman',
+ 'MA_gor_6_REL_cross_all',
+ 'EMA100_REL_shift24_cross',
+ 'EMA14_REL_shift6_cross',
+ 'RSI20_dw_30',
+ 'Close_2_to_3',
+ 'EMA20_REL_shift1_cross',
+ 'RSI27_up_80',
+ 'MACDHist_corr_roll_mean3_shift3',
+ 'Close_5_to_6',
+ 'Close_6_to_7',
+ 'MACDHist_corr_roll_mean3',
+ 'AweOs_corr_0_to_6',
+ 'MA25_REL_shift1',
+ 'Close_2_to_MA15',
+ 'EMA12_REL_shift6',
+ 'Close_0_to_3',
+ 'step_to_fiba',
+ 'Close_9_to_MA15',
+ 'EMA200_REL_shift24',
+ 'AweOs_corr_0_to_1',
+ 'MA_gor_24_REL_cross_all',
+ 'Close_1_to_2',
+ 'Close_0_to_6',
+ 'MA50_REL_shift1',
+ 'EMA14_REL_shift12',
+ 'MA20_REL',
+ 'MA15_REL_shift1_cross',
+ 'MACDHist_corr_0_to_1',
+ 'EMA_gor_12_REL_cross_all',
+ 'MACDHist_corr_0_to_6',
+ 'Close_8_to_9',
+ 'Close_11_to_12',
+ 'EMA12_REL_shift12_cross',
+ 'EMA50_REL_shift24_cross',
+ 'MA15_REL',
+ 'Close_4_to_5',
+ 'EMA50_REL_shift1_cross',
+ 'EMA44_REL',
+ 'Close_0_to_1',
+ 'MA150_REL_shift1_cross',
+ 'Close_0_to_12',
+ 'MA100_REL_shift6_cross',
+ 'EMA200_REL_shift6_cross',
+ 'EMA44_REL_shift12_cross',
+ 'MA100_REL_shift1_cross',
+ 'MACDHist_REL_shift10',
+ 'level_close_old_w',
+ 'EMA75_REL_shift12',
+ 'std_100_rel',
+ 'MA75_REL_shift1_cross',
+ 'EMA20_REL',
+ 'Close_10_to_11',
+ 'MA75_REL_shift1',
+ 'AweOs_cor_shift3',
+ 'EMA12_REL_shift1',
+ 'MA75_REL_shift12_cross',
+ 'MA10_REL_shift12',
+ 'MA200_REL',
+ 'RSI14',
+ 'MA5_REL_shift1_cross',
+ 'MA75_REL_shift24_cross',
+ 'EMA26_REL_shift1',
+ 'MA150_REL_shift12_cross',
+ 'EMA12_REL_shift24',
+ 'EMA150_REL_shift1_cross',
+ 'EMA60_REL_shift6_cross',
+ 'EMA150_REL_shift6_cross',
+ 'Close_coef_nak',
+ 'TSI',
+ 'MA200_REL_shift1_cross',
+ 'Close_12_to_MA15',
+ 'EMA100_REL_shift6',
+ 'MA25_REL_shift6',
+ 'Close_11_to_MA15',
+ 'RSI20',
+ 'Close_m3_4_to_MA15',
+ 'Close_0_to_9',
+ 'RSI27',
+ 'EMA26_REL_shift6_cross',
+ 'RSI9',
+ 'EMA12_REL_shift1_cross',
+ 'MA25_REL_shift1_cross',
+ 'EMA60_REL_shift1',
+ 'MA100_REL',
+ 'AweOs_cor_roll_mean3_shift1',
+ 'MA50_REL_shift1_cross',
+ 'MACDHist_corr_shift3',
+ 'EMA32_REL',
+ 'EMA100_REL_shift1_cross',
+ 'EMA100_REL_shift12_cross',
+ 'MA25_REL',
+ 'MACDHist_REL_shift5',
+ 'MA150_REL_shift24_cross',
+ 'EMA100_REL_shift6_cross',
+ 'MACDHist_corr_shift6',
+ 'MA50_REL_shift12_cross',
+ 'MA100_REL_shift24_cross',
+ 'MA200_REL_shift6',
+ 'MA200_REL_shift6_cross',
+ 'MA200_REL_shift12_cross',
+ 'EMA50_REL_shift6',
+ 'EMA150_REL',
+ 'EMA20_REL_shift12',
+ 'EMA44_REL_shift24_cross',
+ 'EMA150_REL_shift24',
+ 'MA15_REL_shift6_cross',
+ 'Close_m3_3_to_MA15',
+ 'MA25_REL_shift6_cross',
+ 'EMA75_REL_shift24_cross',
+ 'MA50_REL_shift6_cross',
+ 'MA25_REL_shift24_cross',
+ 'Close_7_to_MA15',
+ 'EMA20_REL_shift1',
+ 'MA20_REL_shift6_cross',
+ 'MA_gor_1_REL_cross_all',
+ 'EMA50_REL_shift12',
+ 'Close_m3_9_to_MA15',
+ 'Close_3_to_MA15',
+ 'MA20_REL_shift1_cross',
+ 'Close_0_to_5',
+ 'MA200_REL_shift24_cross',
+ 'AweOs_cor_roll_mean3_shift3',
+ 'EMA75_REL_shift1',
+ 'MA25_REL_shift12_cross',
+ 'EMA200_REL',
+ 'MA150_REL_shift12',
+ 'MACDHist_REL_shift1',
+ 'EMA150_REL_shift24_cross',
+ 'EMA50_REL_shift1',
+ 'MA50_REL',
+ 'EMA_gor_6_REL_cross_all',
+ 'EMA75_REL_shift6_cross',
+ 'AweOs_cor_shift6',
+ 'EMA75_REL_shift12_cross',
+ 'EMA150_REL_shift12_cross',
+ 'EMA32_REL_shift24',
+ 'EMA20_REL_shift12_cross',
+ 'MA15_REL_shift24_cross',
+ 'Close_m3_0_to_MA15',
+ 'MA10_REL',
+ 'MA20_REL_shift24_cross',
+ 'MA15_REL_shift12_cross',
+ 'Close_14_to_MA15',
+ 'Close_m3_5_to_MA15',
+ 'MA_gor_12_REL_cross_all',
+ 'EMA60_REL',
+ 'EMA60_REL_shift1_cross']
+
+
+
+
 
 #параметры для таргетной переменной
 
@@ -96,145 +345,145 @@ back_check_par=168
 
 col_fin_full=[
    #'Boll_up',
-    #'Boll_down', 
+    #'Boll_down',
     #'MACDHist',
     #'AweOs',
     'MACDHist_corr',
     'AweOs_cor',
-    
-    'ROC200', 'ROC200sm', 
+
+    'ROC200', 'ROC200sm',
     'TSI',
-    
+
     'EMA8_REL', 'EMA8_REL_shift1',
-      'EMA8_REL_shift1_cross', 
-    
+      'EMA8_REL_shift1_cross',
+
     'EMA8_REL_shift6', 'EMA8_REL_shift6_cross',
        'EMA8_REL_shift12', 'EMA8_REL_shift12_cross', 'EMA8_REL_shift24',
-       #'EMA8_REL_shift24_cross', 
-    
+       #'EMA8_REL_shift24_cross',
+
     'EMA12_REL', 'EMA12_REL_shift1',
        'EMA12_REL_shift1_cross', 'EMA12_REL_shift6', 'EMA12_REL_shift6_cross',
        'EMA12_REL_shift12', 'EMA12_REL_shift12_cross', 'EMA12_REL_shift24',
-       #'EMA12_REL_shift24_cross', 
-    
+       #'EMA12_REL_shift24_cross',
+
     'EMA14_REL',
     'EMA14_REL_shift1', 'EMA14_REL_shift1_cross', 'EMA14_REL_shift6',
        'EMA14_REL_shift6_cross', 'EMA14_REL_shift12',
        'EMA14_REL_shift12_cross', 'EMA14_REL_shift24',
-       #'EMA14_REL_shift24_cross', 
-    
+       #'EMA14_REL_shift24_cross',
+
     'EMA20_REL', 'EMA20_REL_shift1',
        'EMA20_REL_shift1_cross', 'EMA20_REL_shift6', 'EMA20_REL_shift6_cross',
        'EMA20_REL_shift12', 'EMA20_REL_shift12_cross', 'EMA20_REL_shift24',
-      # 'EMA20_REL_shift24_cross', 
-    
+      # 'EMA20_REL_shift24_cross',
+
     'EMA26_REL', 'EMA26_REL_shift1',
        'EMA26_REL_shift1_cross', 'EMA26_REL_shift6', 'EMA26_REL_shift6_cross',
        'EMA26_REL_shift12', 'EMA26_REL_shift12_cross', 'EMA26_REL_shift24',
-      # 'EMA26_REL_shift24_cross', 
-    
+      # 'EMA26_REL_shift24_cross',
+
     'EMA32_REL', 'EMA32_REL_shift1',
        'EMA32_REL_shift1_cross', 'EMA32_REL_shift6', 'EMA32_REL_shift6_cross',
        'EMA32_REL_shift12', 'EMA32_REL_shift12_cross','EMA32_REL_shift24',
       # 'EMA32_REL_shift24_cross',
-    
+
     'EMA38_REL', 'EMA38_REL_shift1',
        'EMA38_REL_shift1_cross', 'EMA38_REL_shift6', 'EMA38_REL_shift6_cross',
        'EMA38_REL_shift12', 'EMA38_REL_shift12_cross', 'EMA38_REL_shift24',
-      # 'EMA38_REL_shift24_cross', 
-    
+      # 'EMA38_REL_shift24_cross',
+
     'EMA44_REL', 'EMA44_REL_shift1',
        'EMA44_REL_shift1_cross', 'EMA44_REL_shift6', 'EMA44_REL_shift6_cross',
        'EMA44_REL_shift12', 'EMA44_REL_shift12_cross','EMA44_REL_shift24',
-      #'EMA44_REL_shift24_cross', 
-    
+      #'EMA44_REL_shift24_cross',
+
     'EMA50_REL', 'EMA50_REL_shift1',
      'EMA50_REL_shift1_cross', 'EMA50_REL_shift6', 'EMA50_REL_shift6_cross',
        'EMA50_REL_shift12', 'EMA50_REL_shift12_cross', 'EMA50_REL_shift24',
       # 'EMA50_REL_shift24_cross',
-    
+
     'EMA60_REL', 'EMA60_REL_shift1',
        'EMA60_REL_shift1_cross', 'EMA60_REL_shift6', 'EMA60_REL_shift6_cross',
        'EMA60_REL_shift12', 'EMA60_REL_shift12_cross', 'EMA60_REL_shift24',
-  # 'EMA60_REL_shift24_cross', 
-    
+  # 'EMA60_REL_shift24_cross',
+
     'EMA75_REL', 'EMA75_REL_shift1',
        'EMA75_REL_shift1_cross', 'EMA75_REL_shift6', 'EMA75_REL_shift6_cross',
        'EMA75_REL_shift12', 'EMA75_REL_shift12_cross', 'EMA75_REL_shift24',
-     # 'EMA75_REL_shift24_cross', 
-    
+     # 'EMA75_REL_shift24_cross',
+
     'EMA100_REL', 'EMA100_REL_shift1',
        'EMA100_REL_shift1_cross', 'EMA100_REL_shift6',
        'EMA100_REL_shift6_cross', 'EMA100_REL_shift12',
        'EMA100_REL_shift12_cross', 'EMA100_REL_shift24',
-      # 'EMA100_REL_shift24_cross', 
-    
+      # 'EMA100_REL_shift24_cross',
+
     'EMA150_REL', 'EMA150_REL_shift1',
    'EMA150_REL_shift1_cross', 'EMA150_REL_shift6',
        'EMA150_REL_shift6_cross', 'EMA150_REL_shift12',
        'EMA150_REL_shift12_cross', 'EMA150_REL_shift24',
-       #'EMA150_REL_shift24_cross', 
-    
+       #'EMA150_REL_shift24_cross',
+
     'EMA200_REL', 'EMA200_REL_shift1',
     'EMA200_REL_shift1_cross', 'EMA200_REL_shift6',
        'EMA200_REL_shift6_cross', 'EMA200_REL_shift12',
        'EMA200_REL_shift12_cross', 'EMA200_REL_shift24',
-       #'EMA200_REL_shift24_cross', 
-    
+       #'EMA200_REL_shift24_cross',
+
     'MA5_REL', 'MA5_REL_shift1',
        'MA5_REL_shift1_cross', 'MA5_REL_shift6', 'MA5_REL_shift6_cross',
       'MA5_REL_shift12', 'MA5_REL_shift12_cross', 'MA5_REL_shift24',
-      'MA5_REL_shift24_cross', 
-    
+      'MA5_REL_shift24_cross',
+
     'MA10_REL', 'MA10_REL_shift1',
  'MA10_REL_shift1_cross', 'MA10_REL_shift6', 'MA10_REL_shift6_cross',
        'MA10_REL_shift12',# 'MA10_REL_shift12_cross', 'MA10_REL_shift24',
-      # 'MA10_REL_shift24_cross', 
-    
+      # 'MA10_REL_shift24_cross',
+
     'MA15_REL', 'MA15_REL_shift1',
        'MA15_REL_shift1_cross', 'MA15_REL_shift6', 'MA15_REL_shift6_cross',
        'MA15_REL_shift12',# 'MA15_REL_shift12_cross', 'MA15_REL_shift24',
-     #  'MA15_REL_shift24_cross', 
-    
+     #  'MA15_REL_shift24_cross',
+
    'MA20_REL', 'MA20_REL_shift1',
        'MA20_REL_shift1_cross', 'MA20_REL_shift6', 'MA20_REL_shift6_cross',
        'MA20_REL_shift12',# 'MA20_REL_shift12_cross', #'MA20_REL_shift24',
       # 'MA20_REL_shift24_cross',
-    
+
     'MA25_REL', 'MA25_REL_shift1',
        'MA25_REL_shift1_cross', 'MA25_REL_shift6', 'MA25_REL_shift6_cross',
        'MA25_REL_shift12',# 'MA25_REL_shift12_cross', 'MA25_REL_shift24',
-      # 'MA25_REL_shift24_cross', 
-    
+      # 'MA25_REL_shift24_cross',
+
     'MA50_REL', 'MA50_REL_shift1',
        'MA50_REL_shift1_cross', 'MA50_REL_shift6', 'MA50_REL_shift6_cross',
        'MA50_REL_shift12',# 'MA50_REL_shift12_cross', 'MA50_REL_shift24',
       # 'MA50_REL_shift24_cross',
-    
+
     'MA75_REL', 'MA75_REL_shift1',
        'MA75_REL_shift1_cross', 'MA75_REL_shift6', 'MA75_REL_shift6_cross',
        'MA75_REL_shift12',# 'MA75_REL_shift12_cross', 'MA75_REL_shift24',
-       #'MA75_REL_shift24_cross', 
-    
+       #'MA75_REL_shift24_cross',
+
     'MA100_REL', 'MA100_REL_shift1',
       'MA100_REL_shift1_cross', 'MA100_REL_shift6', 'MA100_REL_shift6_cross',
     'MA100_REL_shift12',# 'MA100_REL_shift12_cross', 'MA100_REL_shift24',
-      #'MA100_REL_shift24_cross', 
-    
+      #'MA100_REL_shift24_cross',
+
 'MA150_REL', 'MA150_REL_shift1',
        'MA150_REL_shift1_cross', 'MA150_REL_shift6', 'MA150_REL_shift6_cross',
        'MA150_REL_shift12',# 'MA150_REL_shift12_cross', 'MA150_REL_shift24',
-     #  'MA150_REL_shift24_cross', 
-    
+     #  'MA150_REL_shift24_cross',
+
     'MA200_REL', 'MA200_REL_shift1',
        'MA200_REL_shift1_cross', 'MA200_REL_shift6', 'MA200_REL_shift6_cross',
        'MA200_REL_shift12',# 'MA200_REL_shift12_cross', 'MA200_REL_shift24',
-     # 'MA200_REL_shift24_cross', 
-    
+     # 'MA200_REL_shift24_cross',
+
     'MACDHist_REL', 'MACDHist_REL_shift0',
       'MACDHist_REL_shift1', 'MACDHist_REL_shift3', 'MACDHist_REL_shift5','MACDHist_REL_shift7',
-    
-    
+
+
 
        'MACDHist_REL_shift10', 'RSI9_up_70', 'RSI9_dw_30', 'RSI9_up_80',
        'RSI9_dw_20', 'RSI14_up_70', 'RSI14_dw_30', 'RSI14_up_80',
@@ -244,68 +493,68 @@ col_fin_full=[
        'EMA_gor_12_REL_cross_all', 'EMA_gor_24_REL_cross_all',
      'MA_gor_1_REL_cross_all', 'MA_gor_6_REL_cross_all',
        'MA_gor_12_REL_cross_all', 'MA_gor_24_REL_cross_all',
-    
-    
-    
+
+
+
        'date_key_h', 'date_key_d',  #(вообще норм, но )
     #'std_20',
     'std_20_rel',
     'std_100_rel',
-    'RSI14_coef_nak', 
-    'Close_coef_nak', 
-    'Volume_coef_nak', 
+    'RSI14_coef_nak',
+    'Close_coef_nak',
+    'Volume_coef_nak',
     'EMA14_coef_nak',
-    'MA100_coef_nak', 
+    'MA100_coef_nak',
     'std_20_coef_nak',
     'MACDHist_nak',
-    
 
 
-    
+
+
      'Close_coef_nak_div_Volume_coef_nak',
-       'Close_coef_nak_div_RSI14_coef_nak', 
-    
+       'Close_coef_nak_div_RSI14_coef_nak',
+
        'Close_coef_nak_div_MACDHist_nak',
-    
+
       'Close_0_to_1', 'Close_1_to_2', 'Close_2_to_3',
        'Close_3_to_4', 'Close_4_to_5', 'Close_5_to_6', 'Close_6_to_7',
        'Close_7_to_8', 'Close_8_to_9', 'Close_9_to_10', 'Close_10_to_11',
        'Close_11_to_12',
-    
-    
+
+
     'Close_0_to_3', 'Close_0_to_4', 'Close_0_to_5',
        'Close_0_to_6', 'Close_0_to_9', 'Close_0_to_12',
-    
+
      'Close_m3_0_to_MA15',
        'Close_m3_1_to_MA15', 'Close_m3_2_to_MA15', 'Close_m3_3_to_MA15',
        'Close_m3_4_to_MA15', 'Close_m3_5_to_MA15', 'Close_m3_6_to_MA15',
        'Close_m3_9_to_MA15', 'Close_m3_12_to_MA15',
-    
+
     'Close_0_to_MA15',
        'Close_1_to_MA15', 'Close_2_to_MA15', 'Close_3_to_MA15',
        'Close_4_to_MA15', 'Close_5_to_MA15', 'Close_6_to_MA15',
        'Close_7_to_MA15', 'Close_8_to_MA15', 'Close_9_to_MA15',
        'Close_10_to_MA15', 'Close_11_to_MA15', 'Close_12_to_MA15',
        'Close_13_to_MA15', 'Close_14_to_MA15', 'Close_15_to_MA15',
-    
-    
+
+
      'RSI9_up_70_perman',
        'RSI9_dw_30_perman',# 'RSI9_up_80_perman', 'RSI9_dw_20_perman',
        'RSI14_up_70_perman', 'RSI14_dw_30_perman', #'RSI14_up_80_perman',
-       'RSI14_dw_20_perman', 
+       'RSI14_dw_20_perman',
     'RSI20_up_70_perman', 'RSI20_dw_30_perman',
-      #'RSI20_up_80_perman', 'RSI20_dw_20_perman', 
+      #'RSI20_up_80_perman', 'RSI20_dw_20_perman',
     'RSI27_up_70_perman',
        'RSI27_dw_30_perman',# 'RSI27_up_80_perman', 'RSI27_dw_20_perman',
-    
-    
+
+
 #     'RSI9_up_70',
 #        'RSI9_dw_30', 'RSI9_up_80', 'RSI9_dw_20', 'RSI14_up_70', 'RSI14_dw_30',
 #        'RSI14_up_80', 'RSI14_dw_20', 'RSI20_up_70', 'RSI20_dw_30',
 #        'RSI20_up_80', 'RSI20_dw_20', 'RSI27_up_70', 'RSI27_dw_30',
 #        'RSI27_up_80', 'RSI27_dw_20',
 
-    
+
     #'MACD',
    # 'Signal',
     'RSI9',
@@ -316,67 +565,67 @@ col_fin_full=[
     'level_close_old_w',
      'level_close_act_w',
     'step_to_fiba',
-    
-    
-    
+
+
+
     'MACDHist_corr_shift0','MACDHist_corr_shift1', 'MACDHist_corr_shift3', 'MACDHist_corr_shift6',
-      
-    #'MACDHist_shift0', 'MACDHist_shift1','MACDHist_shift3', 'MACDHist_shift6', 
-    
+
+    #'MACDHist_shift0', 'MACDHist_shift1','MACDHist_shift3', 'MACDHist_shift6',
+
     #'AweOs_shift0', 'AweOs_shift1', 'AweOs_shift3', 'AweOs_shift6',
-       
+
     'AweOs_cor_shift0', 'AweOs_cor_shift1','AweOs_cor_shift3', 'AweOs_cor_shift6',
-     
+
     'MACDHist_corr_0_to_1','MACDHist_corr_1_to_3', 'MACDHist_corr_3_to_6',
-    
+
     'MACDHist_0_to_1','MACDHist_1_to_3', 'MACDHist_3_to_6',
-    
-    'AweOs_0_to_1', 'AweOs_1_to_3','AweOs_3_to_6', 
-    
+
+    'AweOs_0_to_1', 'AweOs_1_to_3','AweOs_3_to_6',
+
     'AweOs_corr_0_to_1', 'AweOs_corr_1_to_3','AweOs_corr_3_to_6',
-    
+
     #'Close8_plus_100','Close8_minus_100','Close8_dif_100',
     'Close_coef_nak2',
-    
+
         'SV_DIR_shift0',
        'SV_DIR_shift1', 'SV_DIR_shift2', 'SV_DIR_shift3', 'SV_DIR_shift4',
        'SV_DIR_shift5', 'SV_DIR_shift6',
      'SV_DIR_shift7', 'SV_DIR_shift8',
 #        'SV_DIR_shift9', 'SV_DIR_shift10', 'SV_DIR_shift11',
-    
+
      'PER_OPEN_shift0', 'PER_OPEN_shift1', 'PER_OPEN_shift2',
        'PER_OPEN_shift3', 'PER_OPEN_shift4', 'PER_OPEN_shift5',
        'PER_OPEN_shift6',
     'PER_OPEN_shift7', 'PER_OPEN_shift8',
 #        'PER_OPEN_shift9', 'PER_OPEN_shift10', 'PER_OPEN_shift11',
-    
+
     'PER_CLOSE_shift0', 'PER_CLOSE_shift1',
        'PER_CLOSE_shift2', 'PER_CLOSE_shift3', 'PER_CLOSE_shift4',
-       'PER_CLOSE_shift5',# 'PER_CLOSE_shift6', 
+       'PER_CLOSE_shift5',# 'PER_CLOSE_shift6',
 #     'PER_CLOSE_shift7',
 #        'PER_CLOSE_shift8', 'PER_CLOSE_shift9', 'PER_CLOSE_shift10',
 #        'PER_CLOSE_shift11',
-    
+
     'type_molot_shift0', 'type_molot_shift1',
        'type_molot_shift2', 'type_molot_shift3', 'type_molot_shift4',
-       'type_molot_shift5', #'type_molot_shift6', 
+       'type_molot_shift5', #'type_molot_shift6',
     'type_molot_shift7',
 #        'type_molot_shift8', 'type_molot_shift9', 'type_molot_shift10',
 #        'type_molot_shift11',
-    
-    
+
+
     'POLNOTA_shift0', 'POLNOTA_shift1', 'POLNOTA_shift2',
        'POLNOTA_shift3', 'POLNOTA_shift4', #'POLNOTA_shift5',# 'POLNOTA_shift6',
        'POLNOTA_shift7', 'POLNOTA_shift8', 'POLNOTA_shift9', 'POLNOTA_shift10',
        'POLNOTA_shift11',
-    
+
     'Close_0_to_b', 'Close_1_to_b',
        'Close_2_to_b', 'Close_3_to_b', 'Close_4_to_b', 'Close_5_to_b',
        'Open_0_to_b', 'Open_1_to_b', 'Open_2_to_b', 'Open_3_to_b',
        'Open_4_to_b', 'Open_5_to_b', 'Low_0_to_b', 'Low_1_to_b', 'Low_2_to_b',
        'Low_3_to_b', 'Low_4_to_b', 'Low_5_to_b', 'High_0_to_b', 'High_1_to_b',
        'High_2_to_b', 'High_3_to_b', 'High_4_to_b', 'High_5_to_b',
-    
+
     'EVENT22',
        'EVENT21', 'EVENT20', 'EVENT19', 'EVENT18', 'EVENT17', 'EVENT16',
        'EVENT15', 'EVENT14', 'EVENT13', 'EVENT12', 'EVENT11', 'EVENT10',
@@ -388,12 +637,12 @@ col_fin_full=[
     'down_far',
     'up_far',
     'mae_opt_far',
-    
-    
+
+
 #     'x0_0',
 #        'x0_1', 'x0_2', 'x0_3', 'x0_4', 'x0_5', 'x0_6', 'x0_7', 'x0_8', 'x0_9',
 #        'x0_10', 'x0_11',
-    
+
     'freq_up_all_300', 'freq_dw_all_300', 'freq_up_ch_300',
        'freq_dw_ch_300', 'freq_up_all_100', 'freq_dw_all_100',
        'freq_up_ch_100', 'freq_dw_ch_100', 'freq_up_all_50', 'freq_dw_all_50',
@@ -401,8 +650,8 @@ col_fin_full=[
        'plotnost_100_all', 'plotnost_100_ch', 'plotnost_50_all',
        'plotnost_50_ch', 'balance_300_all', 'balance_300_ch',
        'balance_100_all', 'balance_100_ch', 'balance_50_all', 'balance_50_ch',
-    
-    
+
+
     'EMA8_REL_shift24_cross', 'EMA12_REL_shift24_cross', 'EMA14_REL_shift24_cross',
 'EMA20_REL_shift24_cross', 'EMA26_REL_shift24_cross', 'EMA32_REL_shift24_cross',
 'EMA38_REL_shift24_cross', 'EMA44_REL_shift24_cross', 'EMA50_REL_shift24_cross',
@@ -421,7 +670,7 @@ col_fin_full=[
 'AweOs_cor_roll_mean3', 'AweOs_cor_roll_mean3_shift0', 'AweOs_cor_roll_mean3_shift1', 'AweOs_cor_roll_mean3_shift3',
 'AweOs_cor_roll_mean3_shift6'
 
-    
+
 ]
 
 
@@ -456,17 +705,17 @@ col_fin_full=[
 # MODEL_PARAMS_DW_4H = {
 
 # #     'boosting_type':'dart',
-#       'num_leaves': 80, 
-#       'max_depth': 8, 
+#       'num_leaves': 80,
+#       'max_depth': 8,
 # #      'learning_rate': 0.1,
 #       'n_estimators': 100,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 # #      'reg_lambda': 50,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -476,17 +725,17 @@ col_fin_full=[
 # MODEL_PARAMS_UP_4H = {
 
 #  #    'boosting_type':'goss',
-#       'num_leaves': 80, 
-# #      'max_depth': 9, 
+#       'num_leaves': 80,
+# #      'max_depth': 9,
 # #      'learning_rate': 0.13,
 #       'n_estimators': 200,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 # #      'reg_lambda': 0,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 # #    'scale_pos_weight': 4,
 #       'n_jobs': 10
 # }
@@ -513,17 +762,17 @@ col_fin_full=[
 # MODEL_PARAMS_DW_4H = {
 
 #      'boosting_type':'dart',
-# #      'num_leaves': 90, 
-# #      'max_depth': 8, 
+# #      'num_leaves': 90,
+# #      'max_depth': 8,
 # #      'learning_rate': 0.1,
 #       'n_estimators': 100,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 90,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -535,17 +784,17 @@ col_fin_full=[
 # MODEL_PARAMS_UP_4H = {
 
 #     'boosting_type':'dart',
-# #      'num_leaves': 80, 
-# #      'max_depth': 9, 
+# #      'num_leaves': 80,
+# #      'max_depth': 9,
 # #      'learning_rate': 0.13,
 # #      'n_estimators': 200,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 75,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 # #    'scale_pos_weight': 4,
 #       'n_jobs': 10
 # }
@@ -577,17 +826,17 @@ col_fin_full=[
 # MODEL_PARAMS_DW_4H = {
 
 #      'boosting_type':'gbdt',
-# #      'num_leaves': 90, 
-# #      'max_depth': 8, 
+# #      'num_leaves': 90,
+# #      'max_depth': 8,
 #       'learning_rate': 0.06,
 #       'n_estimators': 100,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 80,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -599,17 +848,17 @@ col_fin_full=[
 # MODEL_PARAMS_UP_4H = {
 
 #     'boosting_type':'dart',
-#       'num_leaves': 150, 
-#       'max_depth': 7, 
+#       'num_leaves': 150,
+#       'max_depth': 7,
 # #      'learning_rate': 0.13,
 # #      'n_estimators': 200,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 50,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 # #    'scale_pos_weight': 4,
 #       'n_jobs': 10
 # }
@@ -633,17 +882,17 @@ col_fin_full=[
 # MODEL_PARAMS_UP_4H = {
 
 #     'boosting_type':'gbdt',
-#       'num_leaves': 100, 
-# #      'max_depth': 7, 
+#       'num_leaves': 100,
+# #      'max_depth': 7,
 #       'learning_rate': 0.05,
 # #      'n_estimators': 200,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 50,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 # #    'scale_pos_weight': 4,
 #       'n_jobs': 10
 # }
@@ -656,17 +905,17 @@ col_fin_full=[
 # MODEL_PARAMS_DW_4H = {
 
 #      'boosting_type':'dart',
-#       'num_leaves': 200, 
-#       'max_depth': 6, 
+#       'num_leaves': 200,
+#       'max_depth': 6,
 #       'learning_rate': 0.1,
 #       'n_estimators': 100,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 200,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -691,17 +940,17 @@ col_fin_dw_4h=['MA100_coef_nak', 'Open_2_to_b', 'EMA50_REL_shift24', 'MA75_REL_s
 MODEL_PARAMS_UP_4H = {
 
     'boosting_type':'gbdt',
-      'num_leaves': 100, 
-      'max_depth': 4, 
+      'num_leaves': 100,
+      'max_depth': 4,
       'learning_rate': 0.07,
 #      'n_estimators': 200,
 #      'min_child_samples': 20,
 #      'subsample': 0.7,
-#      'colsample_bytree': 0.7, 
+#      'colsample_bytree': 0.7,
 #      'min_child_weight': 5,
 #      'reg_alpha': 0,
       'reg_lambda': 50,
-#      'random_state': 42, 
+#      'random_state': 42,
 #    'scale_pos_weight': 4,
       'n_jobs': 10
 }
@@ -712,17 +961,17 @@ MODEL_PARAMS_UP_4H = {
 MODEL_PARAMS_DW_4H = {
 
 #     'boosting_type':'dart',
-#      'num_leaves': 200, 
-#      'max_depth': 6, 
+#      'num_leaves': 200,
+#      'max_depth': 6,
       'learning_rate': 0.1,
       'n_estimators': 100,
 #      'min_child_samples': 20,
 #      'subsample': 0.7,
-#      'colsample_bytree': 0.7, 
+#      'colsample_bytree': 0.7,
 #      'min_child_weight': 5,
 #      'reg_alpha': 0,
       'reg_lambda': 5,
-#      'random_state': 42, 
+#      'random_state': 42,
     'scale_pos_weight': 1,
       'n_jobs': 10
 }
@@ -746,17 +995,17 @@ MODEL_PARAMS_DW_4H = {
 # MODEL_PARAMS_UP_4H = {
 
 #     'boosting_type':'gbdt',
-#       'num_leaves': 100, 
-# #      'max_depth': 4, 
+#       'num_leaves': 100,
+# #      'max_depth': 4,
 #       'learning_rate': 0.1,
 # #      'n_estimators': 200,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 50,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 # #    'scale_pos_weight': 4,
 #       'n_jobs': 10
 # }
@@ -767,17 +1016,17 @@ MODEL_PARAMS_DW_4H = {
 # MODEL_PARAMS_DW_4H = {
 
 # #     'boosting_type':'dart',
-# #      'num_leaves': 200, 
-# #      'max_depth': 6, 
+# #      'num_leaves': 200,
+# #      'max_depth': 6,
 #       'learning_rate': 0.1,
 #       'n_estimators': 100,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 25,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -813,17 +1062,17 @@ MODEL_PARAMS_DW_4H = {
 # MODEL_PARAMS_DW_1H = {
 
 #      'boosting_type':'dart',
-#       'num_leaves': 100, 
-# #      'max_depth': 9, 
+#       'num_leaves': 100,
+# #      'max_depth': 9,
 #       'learning_rate': 0.1,
 #       'n_estimators': 100,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 50,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -833,17 +1082,17 @@ MODEL_PARAMS_DW_4H = {
 # MODEL_PARAMS_UP_1H = {
 
 #      'boosting_type':'goss',
-# #      'num_leaves': 31, 
-# #      'max_depth': 9, 
+# #      'num_leaves': 31,
+# #      'max_depth': 9,
 # #      'learning_rate': 0.13,
 #       'n_estimators': 200,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 0,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 4,
 #       'n_jobs': 10
 # }
@@ -866,17 +1115,17 @@ MODEL_PARAMS_DW_4H = {
 # MODEL_PARAMS_DW_1H = {
 
 #      'boosting_type':'dart',
-#       'num_leaves': 31, 
-# #      'max_depth': 9, 
+#       'num_leaves': 31,
+# #      'max_depth': 9,
 # #      'learning_rate': 0.1,
 #       'n_estimators': 300,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 220,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -886,17 +1135,17 @@ MODEL_PARAMS_DW_4H = {
 # MODEL_PARAMS_UP_1H = {
 
 #      'boosting_type':'gbdt',
-#       'num_leaves': 50, 
-# #      'max_depth': 9, 
+#       'num_leaves': 50,
+# #      'max_depth': 9,
 # #      'learning_rate': 0.1,
 #       'n_estimators': 100,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 200,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -919,17 +1168,17 @@ MODEL_PARAMS_DW_4H = {
 # MODEL_PARAMS_DW_1H = {
 
 # #     'boosting_type':'gbdt',
-# #      'num_leaves': 31, 
-# #      'max_depth': 9, 
+# #      'num_leaves': 31,
+# #      'max_depth': 9,
 #       'learning_rate': 0.05,
 # #      'n_estimators': 300,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 250,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -940,17 +1189,17 @@ MODEL_PARAMS_DW_4H = {
 # MODEL_PARAMS_UP_1H = {
 
 #      'boosting_type':'gbdt',
-# #      'num_leaves': 50, 
-# #      'max_depth': 9, 
+# #      'num_leaves': 50,
+# #      'max_depth': 9,
 # #      'learning_rate': 0.1,
 # #      'n_estimators': 100,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 150,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -977,17 +1226,17 @@ MODEL_PARAMS_DW_4H = {
 # MODEL_PARAMS_DW_1H = {
 
 # #     'boosting_type':'gbdt',
-# #      'num_leaves': 31, 
-# #      'max_depth': 9, 
+# #      'num_leaves': 31,
+# #      'max_depth': 9,
 # #      'learning_rate': 0.05,
 # #      'n_estimators': 300,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 125,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -998,17 +1247,17 @@ MODEL_PARAMS_DW_4H = {
 # MODEL_PARAMS_UP_1H = {
 
 #      'boosting_type':'gbdt',
-# #      'num_leaves': 50, 
-# #      'max_depth': 9, 
+# #      'num_leaves': 50,
+# #      'max_depth': 9,
 # #      'learning_rate': 0.1,
 # #      'n_estimators': 100,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 75,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -1035,17 +1284,17 @@ MODEL_PARAMS_DW_4H = {
 # MODEL_PARAMS_DW_1H = {
 
 # #     'boosting_type':'gbdt',
-# #      'num_leaves': 31, 
-# #      'max_depth': 9, 
+# #      'num_leaves': 31,
+# #      'max_depth': 9,
 # #      'learning_rate': 0.05,
 # #      'n_estimators': 300,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 0,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -1056,17 +1305,17 @@ MODEL_PARAMS_DW_4H = {
 # MODEL_PARAMS_UP_1H = {
 
 #      'boosting_type':'gbdt',
-# #      'num_leaves': 50, 
-# #      'max_depth': 9, 
+# #      'num_leaves': 50,
+# #      'max_depth': 9,
 # #      'learning_rate': 0.1,
 # #      'n_estimators': 100,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 150,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -1077,7 +1326,7 @@ MODEL_PARAMS_DW_4H = {
 
 ####################       1H      ВЕРСИЯ 09.11 - версия для 1 %
 
-#### параметры торговли  6 0.05 0.0 0.02 0.1 3 10 0 баланс_ 1096961.0   
+#### параметры торговли  6 0.05 0.0 0.02 0.1 3 10 0 баланс_ 1096961.0
 #6 0.05 0.0 0.02 0.1 3 10 0 баланс_ 1096961.0 ||| 394 5 1432 1102 _торг_мод_стоп_ 78.8 1.3 -0.31 стоп 516 122 516 || 0.004 -0.01
 
 # #версия 27.08
@@ -1092,17 +1341,17 @@ MODEL_PARAMS_DW_4H = {
 # MODEL_PARAMS_DW_1H = {
 
 # #     'boosting_type':'gbdt',
-# #      'num_leaves': 31, 
-# #      'max_depth': 9, 
+# #      'num_leaves': 31,
+# #      'max_depth': 9,
 # #      'learning_rate': 0.05,
 # #      'n_estimators': 300,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 #       'reg_lambda': 0,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -1113,17 +1362,17 @@ MODEL_PARAMS_DW_4H = {
 # MODEL_PARAMS_UP_1H = {
 
 #      'boosting_type':'gbdt',
-# #      'num_leaves': 50, 
-#       'max_depth': 4, 
+# #      'num_leaves': 50,
+#       'max_depth': 4,
 #       'learning_rate': 0.05,
 # #      'n_estimators': 100,
 # #      'min_child_samples': 20,
 # #      'subsample': 0.7,
-# #      'colsample_bytree': 0.7, 
+# #      'colsample_bytree': 0.7,
 # #      'min_child_weight': 5,
 # #      'reg_alpha': 0,
 # #      'reg_lambda': 150,
-# #      'random_state': 42, 
+# #      'random_state': 42,
 #     'scale_pos_weight': 1,
 #       'n_jobs': 10
 # }
@@ -1469,17 +1718,17 @@ col_fin_dw_15m=['MACDHist_corr', 'AweOs_cor', 'ROC200', 'ROC200sm', 'TSI', 'EMA3
 MODEL_PARAMS_UP_15M = {
 
      'boosting_type':'gbdt',
-#      'num_leaves': 50, 
-      'max_depth': 7, 
+#      'num_leaves': 50,
+      'max_depth': 7,
 #      'learning_rate': 0.1,
 #      'n_estimators': 100,
 #      'min_child_samples': 20,
 #      'subsample': 0.7,
-#      'colsample_bytree': 0.7, 
+#      'colsample_bytree': 0.7,
 #      'min_child_weight': 5,
 #      'reg_alpha': 0,
       'reg_lambda': 100,
-#      'random_state': 42, 
+#      'random_state': 42,
     'scale_pos_weight': 1,
       'n_jobs': 10
             }
@@ -1489,17 +1738,17 @@ MODEL_PARAMS_UP_15M = {
 MODEL_PARAMS_DW_15M = {
 
      'boosting_type':'gbdt',
-#      'num_leaves': 50, 
-      'max_depth': 6, 
+#      'num_leaves': 50,
+      'max_depth': 6,
 #      'learning_rate': 0.1,
 #      'n_estimators': 100,
 #      'min_child_samples': 20,
 #      'subsample': 0.7,
-#      'colsample_bytree': 0.7, 
+#      'colsample_bytree': 0.7,
 #      'min_child_weight': 5,
 #      'reg_alpha': 0,
       'reg_lambda': 200,
-#      'random_state': 42, 
+#      'random_state': 42,
     'scale_pos_weight': 1,
       'n_jobs': 10
 }
