@@ -26,10 +26,12 @@ S3_ENDPOINT_URL = Variable.get("S3_ENDPOINT_URL")
 S3_ACCESS_KEY = Variable.get("S3_ACCESS_KEY")
 S3_SECRET_KEY = Variable.get("S3_SECRET_KEY")
 S3_BUCKET_NAME = Variable.get("S3_BUCKET_NAME")
+#S3_BUCKET_SOURCE = Variable.get("S3_BUCKET_NAME_COLD")
 S3_INPUT_DATA_BUCKET = S3_BUCKET_NAME + "/airflow/"  # YC S3 bucket for input data
 S3_SOURCE_BUCKET = S3_BUCKET_NAME[:]  # YC S3 bucket for pyspark source files
 S3_DP_LOGS_BUCKET = S3_BUCKET_NAME + "/airflow_logs/"  # YC S3 bucket for Data Proc logs
-S3_BUCKET_NAME_COLD = Variable.get("S3_BUCKET_NAME_COLD")
+#S3_BUCKET_NAME_COLD = S3_BUCKET_SOURCE[:]
+S3_BUCKET_NAME_COLD = 'cold-s3-bucket'
 
 # Переменные необходимые для создания Dataproc кластера
 DP_SA_AUTH_KEY_PUBLIC_KEY = Variable.get("DP_SA_AUTH_KEY_PUBLIC_KEY")
@@ -134,13 +136,12 @@ with DAG(
         main_python_file_uri=f"s3a://{S3_SOURCE_BUCKET}/src/feature_generation.py",
         connection_id=YC_SA_CONNECTION.conn_id,
         properties = {'spark.submit.deployMode': 'cluster',
-                    'spark.yarn.dist.archives': f's3a://{S3_BUCKET_NAME_COLD}/venvs/btc_venv_pack2.tar.gz#venv1',
+                    'spark.yarn.dist.archives': f's3a://{S3_BUCKET_NAME_COLD}/venvs/btc_venv_pack1.tar.gz#venv1',
                     'spark.yarn.appMasterEnv.PYSPARK_PYTHON': './venv1/bin/python',
                     'spark.yarn.appMasterEnv.PYSPARK_DRIVER_PYTHON': './venv1/bin/python'},
         python_file_uris =[f"s3a://{S3_SOURCE_BUCKET}/src/bit_functions.py",
                             f"s3a://{S3_SOURCE_BUCKET}/src/classes.py",
                             f"s3a://{S3_SOURCE_BUCKET}/src/config_btc.py"],
-        #args=["--bucket", S3_BUCKET_NAME_COLD],
         dag=ingest_dag,
     )
     # 3 этап: удаление Dataproc кластера
