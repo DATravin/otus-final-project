@@ -11,6 +11,7 @@ terraform.tfvars
 *.tfstate.backup
 *.tfstate.backup.*
 *.tfplan
+*.ipynb
 .terraform
 .terraform.lock.hcl
 *.info
