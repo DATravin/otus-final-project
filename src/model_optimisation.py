@@ -191,12 +191,12 @@ def main(input_path):
         model_versions = client.search_model_versions(filter_string=f"name = '{model_name}'")
 
 
-        if len(model_versions)==1:
-            cur_version = model_versions[0].version
-            client.transition_model_version_stage(name=model_name, version=cur_version, stage="Production")
-        else:
-            cur_version = client.get_latest_versions(model_name, stages=["None"])
-            client.transition_model_version_stage(name=model_name, version=cur_version, stage="Staging")
+        #if len(model_versions)==1:
+        #    cur_version = model_versions[0].version
+        #    client.transition_model_version_stage(name=model_name, version=cur_version, stage="Production")
+        #else:
+        #    cur_version = client.get_latest_versions(model_name, stages=["None"])
+        #    client.transition_model_version_stage(name=model_name, version=cur_version, stage="Staging")
 
 
         mlflow.end_run()

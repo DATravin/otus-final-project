@@ -30,9 +30,6 @@ S3_BUCKET_NAME = Variable.get("S3_BUCKET_NAME")
 S3_INPUT_DATA_BUCKET = S3_BUCKET_NAME + "/airflow/"  # YC S3 bucket for input data
 S3_SOURCE_BUCKET = S3_BUCKET_NAME[:]  # YC S3 bucket for pyspark source files
 S3_DP_LOGS_BUCKET = S3_BUCKET_NAME + "/airflow_logs/"  # YC S3 bucket for Data Proc logs
-#S3_BUCKET_SOURCE = Variable.get("S3_BUCKET_NAME_COLD")
-#S3_BUCKET_NAME_COLD = S3_BUCKET_SOURCE[:]
-S3_BUCKET_NAME_COLD = 'cold-s3-bucket'
 
 # Переменные необходимые для создания Dataproc кластера
 DP_SA_AUTH_KEY_PUBLIC_KEY = Variable.get("DP_SA_AUTH_KEY_PUBLIC_KEY")
@@ -40,6 +37,7 @@ DP_SA_PATH = Variable.get("DP_SA_PATH")
 DP_SA_ID = Variable.get("DP_SA_ID")
 DP_SECURITY_GROUP_ID = Variable.get("DP_SECURITY_GROUP_ID")
 S3_BUCKET_NAME_COLD = Variable.get("S3_BUCKET_NAME_COLD")
+
 
 # Переменные для подключения к MLFLOW
 MLFLOW_HOST = Variable.get("MLFLOW_HOST")
@@ -136,7 +134,7 @@ with DAG(
     )
     # 2 этап: запуск задания PySpark
     data_spark_processing = DataprocCreatePysparkJobOperator(
-        task_id="dp-cluster-pyspark-task",
+        task_id="dp-cluster-data-preprocess-task2",
         main_python_file_uri=f"s3a://{S3_SOURCE_BUCKET}/src/feature_generation.py",
         connection_id=YC_SA_CONNECTION.conn_id,
         properties = {'spark.submit.deployMode': 'cluster',
@@ -146,11 +144,12 @@ with DAG(
         python_file_uris =[f"s3a://{S3_SOURCE_BUCKET}/src/bit_functions.py",
                             f"s3a://{S3_SOURCE_BUCKET}/src/classes.py",
                             f"s3a://{S3_SOURCE_BUCKET}/src/config_btc.py"],
+        #args=["--bucket", S3_BUCKET_NAME_COLD],
         dag=ingest_dag,
     )
     # 3 этап: запуск задания PySpark
     model_spark_processing = DataprocCreatePysparkJobOperator(
-        task_id="dp-cluster-pyspark-task",
+        task_id="dp-cluster-ml-model-task3",
         main_python_file_uri=f"s3a://{S3_SOURCE_BUCKET}/src/model_optimisation.py",
         connection_id=YC_SA_CONNECTION.conn_id,
         properties = {'spark.submit.deployMode': 'cluster',
@@ -177,3 +176,4 @@ with DAG(
     # Формирование DAG из указанных выше этапов
     # pylint: disable=pointless-statement
     create_spark_cluster >> data_spark_processing >> model_spark_processing >> delete_spark_cluster
+    # create_spark_cluster >> model_spark_processing >> delete_spark_cluster
