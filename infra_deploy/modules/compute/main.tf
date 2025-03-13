@@ -23,7 +23,9 @@ resource "yandex_compute_instance" "vm" {
   }
 
   provisioner "file" {
-    content = templatefile("${path.module}/scripts/setup_libs.sh"
+    content = templatefile("${path.module}/scripts/setup_libs.sh", {
+      private_key              = file(var.private_key_path)
+      }
     )
     destination = "/home/${var.instance_user}/setup_libs.sh"
   }
