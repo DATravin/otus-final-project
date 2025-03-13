@@ -62,7 +62,7 @@ def main():
 
     data_set_4h_add=classes.Features(config_btc,'4H',bit_functions).transform(agregate_4h_add)
 
-    x_loc2 = data_set_4h_add.tail(1)
+    x_loc2 = data_set_4h_add[columns_models].tail(1)
 
     logger.info(f"sample has been prepaired")
 
