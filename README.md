@@ -61,6 +61,31 @@ venv-pack -o btc_venv_pack2.tar.gz
 
 hdfs dfs -copyFromLocal btc_venv_pack2.tar.gz s3a://cold-s3-bucket/venvs/
 
+## открыть jupiter под окружением
+
+sсreen
+source pyspark_venv/bin/activate
+pip install jupyter ipykernel
+python -m ipykernel install --user --name=pyspark_venv --display-name "Python (myenv)"
+jupyter notebook
+
+
+deactivate
+
+
+## копирования с s3 на s3
+
+проверка содержимого
+
+s3cmd --config=/home/ubuntu/.s3cfg ls s3://cold-s3-bucket
+
+s3cmd cp \
+    --config=/home/ubuntu/.s3cfg \
+    --acl-public \
+    s3://airflow-bucket-c8f0a7919d61cd4e/artifacts/ \
+    s3://cold-s3-bucket/mlflow/ \
+    --recursive
+
 ## проверка данных на s3
 
 проверяем (только с прокси)
