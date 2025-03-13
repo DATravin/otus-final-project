@@ -22,6 +22,19 @@ resource "yandex_compute_instance" "vm" {
     ]
   }
 
+  provisioner "file" {
+    content = templatefile("${path.module}/scripts/setup_libs.sh"
+    )
+    destination = "/home/${var.instance_user}/setup_libs.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /home/${var.instance_user}/setup_libs.sh",
+      # "sudo /home/${var.instance_user}/setup.sh"
+    ]
+  }
+
   scheduling_policy {
     preemptible = true
   }
