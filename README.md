@@ -122,6 +122,14 @@ docker build --build-arg S3_ACCESS_KEY=$S3_ACCESS_KEY -t datravin/otus-repo:exp 
 
 # kuber
 
+--смотрим сервисы
+kubectl get services --output=wide
+--смотрим что собралось
+kubectl get nodes --output=wide
+--смотрим что собралось
+kubectl get podes --output=wide
+
+
 kind create cluster --config=cluster-config.yaml
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
@@ -144,3 +152,67 @@ sudo vim /etc/hosts
 
 ЗАПУСК:
 curl http://test.ai/predict
+
+
+Алтернатинвый способ захода:
+
+kubectl port-forward deployments/ml-app 8888:80
+
+и с другого места
+
+curl localhost:8888/predict
+
+curl localhost:8888/metrics
+
+Можем дергать ручки
+
+# Grafana
+
+Развернем сервис мониторинга titanic'a
+
+```shell
+kubectl apply -f btc_monitoring.yml
+```
+Возможно, понадобится
+
+```shell
+kubectl create namespace monitoring
+```
+
+
+Для сбора метрик развернем сервисный аккаунт
+```shell
+kubectl apply -f prom_rbac.yml
+```
+
+Теперь заходим на VM с прокидываением порта 3000
+
+Для того, чтобы вывести в UI графану:
+
+```shell
+export POD_NAME=$(kubectl --namespace default get pod -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=monitoring" -oname)
+  kubectl --namespace default port-forward $POD_NAME 3000
+```
+
+http://localhost:3000
+
+Get Grafana 'admin' user
+
+Для получения пароля:
+```shell
+kubectl --namespace default get secrets monitoring-grafana -o jsonpath="{.data.admin-password}" | base64 -d ; echo
+```
+
+
+Мы внутри
+
+
+# prometheus
+
+Заходим на VM с пробросом порта 9090
+```shell
+ kubectl port-forward svc/prometheus-operated -n default 9090:9090
+```
+И также в браузере
+
+http://localhost:9090
