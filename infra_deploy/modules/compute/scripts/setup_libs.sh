@@ -18,6 +18,7 @@ sudo pip install pydantic
 sudo pip install uvicorn
 sudo pip install fastapi
 sudo pip install python-dotenv
+sudo pip install tqdm
 
 
 log "Setup completed successfully"

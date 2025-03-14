@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: ml-app
-        image: datravin/otus-repo:light
+        image: datravin/otus-repo:btc
         ports:
         - containerPort: 80
         startupProbe:

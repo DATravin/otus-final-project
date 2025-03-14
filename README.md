@@ -91,3 +91,56 @@ s3cmd cp \
 проверяем (только с прокси)
 
 s3cmd --config=/home/ubuntu/.s3cfg ls s3://cold-s3-bucket
+
+# Docker
+
+Собрать контейнер
+sudo docker build -t datravin/otus-repo:btc .
+
+Проверить образы:
+sudo docker images
+
+логин на dockerhub
+sudo docker login -u datravin
+
+запушить в docker hub
+sudo docker push datravin/otus-repo:btc
+
+удалить образ
+sudo docker rm -f 3c47ea150835
+sudo docker rmi otus-test2
+sudo docker rmi 3c47ea150835
+
+удаление по тегу:
+sudo docker rmi datravin/otus-repo:btc
+
+запуск с заходом внутрь:
+docker run --rm -it -p 8880:8880 --name my_test_cont datravin/otus-repo:btc bash
+
+Сборка с прокидыванием переменных
+docker build --build-arg S3_ACCESS_KEY=$S3_ACCESS_KEY -t datravin/otus-repo:exp .
+
+# kuber
+
+kind create cluster --config=cluster-config.yaml
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+
+
+kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=90s
+
+
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+kubectl apply -f ingress.yaml
+
+
+sudo vim /etc/hosts
+
+прописать строку 127.0.0.1 btc.ai
+
+ЗАПУСК:
+curl http://test.ai/predict

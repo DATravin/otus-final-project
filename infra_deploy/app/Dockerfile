@@ -1,13 +1,12 @@
-FROM ubuntu:22.04
-
+FROM python:3.11.4-slim-buster
 
 # install packages
-RUN apt-get update && \
-    apt-get install -y curl \
-    wget \
-    openjdk-8-jdk
+#RUN apt-get update && \
+#    apt-get install -y curl \
+#    wget \
+#    openjdk-8-jdk
 
-RUN apt-get install -y build-essential python3-pip
+#RUN apt-get install -y build-essential python3-pip
 RUN pip3 -q install pip --upgrade
 
 WORKDIR /app

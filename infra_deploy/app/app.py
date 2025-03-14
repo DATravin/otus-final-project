@@ -35,6 +35,6 @@ def startup() -> Response:
 def make_prediction() -> dict:
     """inference model"""
 
-    predict_prob = predict()
+    verdict = predict()
 
-    return {"prob": predict_prob}
+    return {"traide verdict": verdict}
