@@ -45,9 +45,9 @@ variable "private_key_path" {
   type = string
 }
 
-variable "cluster_id" {
-  type = string
-}
+# variable "cluster_id" {
+#   type = string
+# }
 
 variable "yc_config" {
   type = object({
