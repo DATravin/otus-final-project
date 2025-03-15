@@ -75,12 +75,16 @@ chmod 600 /home/ubuntu/.s3cfg
 log "Creating scripts directory on proxy machine"
 mkdir -p /home/ubuntu/app
 mkdir -p /home/ubuntu/app_test
+mkdir -p /home/ubuntu/kuber
 
 chown ubuntu:ubuntu /home/ubuntu/app
 chmod 777 /home/ubuntu/app
 
 chown ubuntu:ubuntu /home/ubuntu/app_test
 chmod 777 /home/ubuntu/app_test
+
+chown ubuntu:ubuntu /home/ubuntu/kuber
+chmod 777 /home/ubuntu/kuber
 
 
 log "Configuring .env"
