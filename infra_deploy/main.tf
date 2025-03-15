@@ -2,7 +2,7 @@
 locals {
   home = "/home/${var.yc_instance_user}"
   home_app = "/home/${var.yc_instance_user}/app"
-  home_kuber = "/home/${var.yc_instance_user}/kuber"
+  #home_kuber = "/home/${var.yc_instance_user}/kuber"
   home_app_test = "/home/${var.yc_instance_user}/app_test"
   home_data = "/home/${var.yc_instance_user}/row_data"
 
@@ -19,8 +19,11 @@ locals {
   inference_downld_path = "${local.home_app}/download_model_from_s3.py"
   inference_row_path = "${local.home_app}/btcusdt_4h.json"
 
-  kuber_service_path = "${local.home_kuber}/service.yaml"
-  kuber_deployment_path = "${local.home_kuber}/deployment.yaml"
+  kuber_service_path = "/home/${var.yc_instance_user}/kuber/service.yaml"
+  kuber_deployment_path = "/home/${var.yc_instance_user}/kuber/deployment.yaml"
+  kuber_ingress_path    = "/home/${var.yc_instance_user}/kuber/ingress.yaml"
+  # kuber_service_path = "${local.home_kuber}/service.yaml"
+  # kuber_deployment_path = "${local.home_kuber}/deployment.yaml"
   #kuber_ingress_path = "${local.home_kuber}/ingress.yaml"
 
   app_test_path = "${local.home_app_test}/app.py"
@@ -205,9 +208,10 @@ resource "null_resource" "import_variables" {
     destination = "${local.kuber_deployment_path}"
   }
 
-  # provisioner "file" {
-  #   source      = "${path.root}/k8s/ingress.yaml"
-  #   destination = "${local.kuber_ingress_path}"
-  # }
+  provisioner "file" {
+    source      = "${path.root}/k8s/ingress.yaml"
+    destination = "${local.kuber_ingress_path}"
+  }
+
 
 }

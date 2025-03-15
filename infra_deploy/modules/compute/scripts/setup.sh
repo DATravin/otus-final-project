@@ -25,10 +25,10 @@ else
 fi
 
 chown ubuntu:ubuntu /home/ubuntu/.config/
-chmod 755 /home/ubuntu/.config/
+chmod -R 755 /home/ubuntu/.config/
 
 chown ubuntu:ubuntu /home/ubuntu/.config/yandex-cloud/
-chmod 755 /home/ubuntu/.config/yandex-cloud/
+chmod -R 755 /home/ubuntu/.config/yandex-cloud/
 
 # Настраиваем config для yc?
 log "Configuring yc"
