@@ -15,8 +15,6 @@ log "building docker imagelog "building docker image""
 docker build -f ./app/Dockerfile -t datravin/otus-repo:btc ./app
 
 
-# log "login on docker hub"
-# TOKEN='dckr_pat_xxC-sCmkfMuAwTJPoWhs5q0sd00'
 
 log "login on docker hub"
 TOKEN="${docker_token}"
