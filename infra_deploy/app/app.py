@@ -16,9 +16,9 @@ app = FastAPI()
 app.add_middleware(PrometheusMiddleware)
 app.add_route("/metrics", handle_metrics)
 
-TOTAL_COUNTER = Counter("cnt signal", "cnt of requested to model")
+TOTAL_COUNTER = Counter("cnt_signal", "cnt of requested to model")
 
-DOWN_COUNTER = Counter("cnt signal", "cnt down signal")
+DOWN_COUNTER = Counter("cnt_signal_down", "cnt down signal")
 #PCLASS_COUNTER = Counter("pclass", "Number of passengers by class", ["pclass"])
 #DOWN_COUNTER = Counter("sell signal", "Number of passengers by class", ["sell"])
 

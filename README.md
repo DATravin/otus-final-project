@@ -120,6 +120,12 @@ docker run --rm -it -p 8880:8880 --name my_test_cont datravin/otus-repo:btc bash
 Сборка с прокидыванием переменных
 docker build --build-arg S3_ACCESS_KEY=$S3_ACCESS_KEY -t datravin/otus-repo:exp .
 
+посмотреть запущенные контейнеры
+docker ps
+
+ПОлучить токен
+https://app.docker.com/settings/personal-access-tokens
+
 # kuber
 
 --смотрим сервисы
@@ -155,14 +161,15 @@ curl http://test.ai/predict
 
 
 Алтернатинвый способ захода:
+Вызывает службу (service)
 
-kubectl port-forward deployments/ml-app 8888:80
+kubectl port-forward svc/clusterip-svc 8080:80
 
 и с другого места
 
-curl localhost:8888/predict
+curl http://localhost:8080/predict
 
-curl localhost:8888/metrics
+curl http://localhost:8080/metrics
 
 Можем дергать ручки
 
@@ -207,6 +214,8 @@ kubectl --namespace default get secrets monitoring-grafana -o jsonpath="{.data.a
 Мы внутри
 
 
+
+
 # prometheus
 
 Заходим на VM с пробросом порта 9090
@@ -216,3 +225,17 @@ kubectl --namespace default get secrets monitoring-grafana -o jsonpath="{.data.a
 И также в браузере
 
 http://localhost:9090
+
+
+# uvicorn
+
+на VM запускаем (сборка окружения)
+source setup_libs.sh
+
+uvicorn app:app --reload --port 8888
+
+c другой git'а заходим и проверяем
+
+curl http://localhost:8888/predict
+
+все должно отработать

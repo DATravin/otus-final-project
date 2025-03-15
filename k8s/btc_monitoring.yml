@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  namespace: monitoring
+  namespace: default # было так monitoring
   labels:
     release: prometheus
   name: ml-app

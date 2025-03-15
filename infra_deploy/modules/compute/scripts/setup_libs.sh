@@ -19,6 +19,9 @@ sudo pip install uvicorn
 sudo pip install fastapi
 sudo pip install python-dotenv
 sudo pip install tqdm
+sudo pip install tqdm
+sudo pip install starlette_exporter
+sudo pip install prometheus-client
 
 
 log "Setup completed successfully"
