@@ -19,9 +19,13 @@ locals {
   inference_downld_path = "${local.home_app}/download_model_from_s3.py"
   inference_row_path = "${local.home_app}/btcusdt_4h.json"
 
-  kuber_service_path = "/home/${var.yc_instance_user}/kuber/service.yaml"
-  kuber_deployment_path = "/home/${var.yc_instance_user}/kuber/deployment.yaml"
-  kuber_ingress_path    = "/home/${var.yc_instance_user}/kuber/ingress.yaml"
+  # kuber_service_path = "/home/${var.yc_instance_user}/kuber/service.yaml"
+  # kuber_deployment_path = "/home/${var.yc_instance_user}/kuber/deployment.yaml"
+  # kuber_ingress_path    = "/home/${var.yc_instance_user}/kuber/ingress.yaml"
+
+  kuber_service_path = "/home/ubuntu/kuber/service.yaml"
+  kuber_deployment_path = "/home/ubuntu/kuber/deployment.yaml"
+  kuber_ingress_path    = "/home/ubuntu/kuber2/ingress.yaml"
   # kuber_service_path = "${local.home_kuber}/service.yaml"
   # kuber_deployment_path = "${local.home_kuber}/deployment.yaml"
   #kuber_ingress_path = "${local.home_kuber}/ingress.yaml"

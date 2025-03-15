@@ -30,6 +30,7 @@ chmod -R 755 /home/ubuntu/.config/
 chown ubuntu:ubuntu /home/ubuntu/.config/yandex-cloud/
 chmod -R 755 /home/ubuntu/.config/yandex-cloud/
 
+
 # Настраиваем config для yc?
 log "Configuring yc"
 cat <<EOF > /home/ubuntu/.config/yandex-cloud/config.yaml
