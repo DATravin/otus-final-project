@@ -25,9 +25,9 @@ log "push on docker hub"
 docker push datravin/otus-repo:btc
 
 log "creating context"
-yc managed-kubernetes cluster get-credentials ${K8S_CLUSTER_ID} --external
+yc managed-kubernetes cluster get-credentials ${cluster_id} --external
 
-yc managed-kubernetes cluster start ${K8S_CLUSTER_ID}
+yc managed-kubernetes cluster start ${cluster_id}
 
 log "apply all yamls"
 kubectl apply -f ./kuber/deployment.yaml
