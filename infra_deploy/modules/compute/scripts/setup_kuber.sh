@@ -24,10 +24,10 @@ echo "$TOKEN" | docker login -u datravin --password-stdin
 log "push on docker hub"
 docker push datravin/otus-repo:btc
 
-log "creating context"
-yc managed-kubernetes cluster get-credentials ${cluster_id} --external
+# log "creating context"
+# yc managed-kubernetes cluster get-credentials ${cluster_id} --external
 
-yc managed-kubernetes cluster start ${cluster_id}
+# yc managed-kubernetes cluster start ${cluster_id}
 
 log "apply all yamls"
 kubectl apply -f ./kuber/deployment.yaml
