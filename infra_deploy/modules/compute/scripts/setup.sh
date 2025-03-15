@@ -30,10 +30,9 @@ chmod 755 /home/ubuntu/.config/
 chown ubuntu:ubuntu /home/ubuntu/.config/yandex-cloud/
 chmod 755 /home/ubuntu/.config/yandex-cloud/
 
-# Настраиваем condig для yc?
+# Настраиваем config для yc?
 log "Configuring yc"
 cat <<EOF > /home/ubuntu/.config/yandex-cloud/config.yaml
-[default]
 current: default
 profiles:
   default:
