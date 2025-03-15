@@ -53,6 +53,7 @@ echo "S3_ACCESS_KEY=${access_key}" >> /home/ubuntu/.bashrc
 echo "S3_SECRET_KEY=${secret_key}" >> /home/ubuntu/.bashrc
 echo "S3_BUCKET_NAME=${s3_bucket_name}" >> /home/ubuntu/.bashrc
 echo "S3_ENDPOINT_URL=https://storage.yandexcloud.net/" >> /home/ubuntu/.bashrc
+echo "K8S_CLUSTER_ID=${cluster_id}" >> /home/ubuntu/.bashrc
 
 log "exports"
 export HOME="/home/ubuntu"

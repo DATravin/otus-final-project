@@ -48,6 +48,11 @@ variable "s3_bucket_name" {
   type        = string
 }
 
+variable "cluster_id" {
+  description = "id of k8s cluster"
+  type        = string
+}
+
 variable "provider_config" {
   description = "Yandex Cloud configuration"
   type = object({

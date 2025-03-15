@@ -51,6 +51,15 @@ module "network" {
   provider_config = var.yc_config
 }
 
+module "kuber" {
+  source             = "./modules/kuber"
+  network_id         = module.network.network_id
+  service_account_id = module.iam.service_account_id
+  security_group_id  = module.network.security_group_id
+  subnet_id          = module.network.subnet_id
+  provider_config    = var.yc_config
+}
+
 # добавит сюда module.kuber.cluster_id
 module "compute" {
   source             = "./modules/compute"
@@ -65,16 +74,10 @@ module "compute" {
   access_key         = module.iam.access_key
   secret_key         = module.iam.secret_key
   s3_bucket_name     = var.yc_cold_bucket_name
+  cluster_id         = module.kuber.cluster_id
 }
 
-# module "kuber" {
-#   source             = "./modules/kuber"
-#   network_id         = module.network.network_id
-#   service_account_id = module.iam.service_account_id
-#   security_group_id  = module.network.security_group_id
-#   subnet_id          = module.network.subnet_id
-#   provider_config    = var.yc_config
-# }
+
 
 
 resource "local_file" "variables_file" {
