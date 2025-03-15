@@ -24,6 +24,9 @@ else
     yc --version
 fi
 
+chown ubuntu:ubuntu /home/ubuntu/.config/
+chmod 755 /home/ubuntu/.config/
+
 # Настраиваем condig для yc?
 log "Configuring yc"
 cat <<EOF > /home/ubuntu/.config/yandex-cloud/config.yaml
@@ -37,8 +40,8 @@ profiles:
     compute-default-zone: {$zone}
 EOF
 
-chown ubuntu:ubuntu /home/ubuntu/.config
-chmod 600 /home/ubuntu/.config
+chown ubuntu:ubuntu /home/ubuntu/.config/yandex-cloud/config.yaml
+chmod 755 /home/ubuntu/.config/yandex-cloud/config.yaml
 
 # Устанавливаем переменные
 

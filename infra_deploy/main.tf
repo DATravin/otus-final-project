@@ -25,9 +25,9 @@ locals {
   requirements_test_path = "${local.home_app_test}/requirements.txt"
   inference_test_path = "${local.home_app_test}/inference.py"
 
-  inference_k8s_service = "${local.home_k8}/service.yaml"
-  inference_k8s_deployment = "${local.home_k8}/deployment.yaml"
-  inference_k8s_ingress = "${local.home_k8}/ingress.yaml"
+  inference_k8s_service_path = "${local.home_k8}/service.yaml"
+  inference_k8s_deployment_path = "${local.home_k8}/deployment.yaml"
+  inference_k8s_ingress_path = "${local.home_k8}/ingress.yaml"
 
 }
 
@@ -197,17 +197,17 @@ resource "null_resource" "import_variables" {
 
   provisioner "file" {
     source      = "${path.root}/k8s/service.yaml"
-    destination = "${local.inference_k8s_service}"
+    destination = "${local.inference_k8s_service_path}"
   }
 
   provisioner "file" {
     source      = "${path.root}/k8s/deployment.yaml"
-    destination = "${local.inference_k8s_deployment}"
+    destination = "${local.inference_k8s_deployment_path}"
   }
 
   provisioner "file" {
     source      = "${path.root}/k8s/ingress.yaml"
-    destination = "${local.inference_k8s_ingress}"
+    destination = "${local.inference_k8s_ingress_path}"
   }
 
 }
