@@ -15,6 +15,7 @@ resource "yandex_compute_instance" "vm" {
       folder_id                = var.provider_config.folder_id
       token                    = var.provider_config.token
       cloud_id                 = var.provider_config.cloud_id
+      cluste_id                = var.cluster_id
       }
     )
     destination = "/home/${var.instance_user}/setup.sh"
