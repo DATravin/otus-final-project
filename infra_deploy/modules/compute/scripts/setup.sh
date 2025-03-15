@@ -24,6 +24,22 @@ else
     yc --version
 fi
 
+# Настраиваем condig для yc?
+log "Configuring yc"
+cat <<EOF > /home/ubuntu/.config/yandex-cloud/config.yaml
+[default]
+current: default
+profiles:
+  default:
+    token: {$token}
+    cloud-id: {$cloud_id}
+    folder-id: {$folder_id}
+    compute-default-zone: {$zone}
+EOF
+
+chown ubuntu:ubuntu /home/ubuntu/.config
+chmod 600 /home/ubuntu/.config
+
 # Устанавливаем переменные
 
 log "add env variables"

@@ -2,6 +2,7 @@
 locals {
   home = "/home/${var.yc_instance_user}"
   home_app = "/home/${var.yc_instance_user}/app"
+  home_k8 = "/home/${var.yc_instance_user}/k8s"
   home_app_test = "/home/${var.yc_instance_user}/app_test"
   home_data = "/home/${var.yc_instance_user}/row_data"
 
@@ -23,6 +24,11 @@ locals {
   entrypoint_test_path = "${local.home_app_test}/entrypoint.sh"
   requirements_test_path = "${local.home_app_test}/requirements.txt"
   inference_test_path = "${local.home_app_test}/inference.py"
+
+  inference_k8s_service = "${local.home_k8}/service.yaml"
+  inference_k8s_deployment = "${local.home_k8}/deployment.yaml"
+  inference_k8s_ingress = "${local.home_k8}/ingress.yaml"
+
 }
 
 module "iam" {
@@ -38,6 +44,7 @@ module "network" {
   provider_config = var.yc_config
 }
 
+# добавит сюда module.kuber.cluster_id
 module "compute" {
   source             = "./modules/compute"
   instance_user      = var.yc_instance_user
@@ -53,14 +60,14 @@ module "compute" {
   s3_bucket_name     = var.yc_cold_bucket_name
 }
 
-module "kuber" {
-  source             = "./modules/kuber"
-  network_id         = module.network.network_id
-  service_account_id = module.iam.service_account_id
-  security_group_id  = module.network.security_group_id
-  subnet_id          = module.network.subnet_id
-  provider_config    = var.yc_config
-}
+# module "kuber" {
+#   source             = "./modules/kuber"
+#   network_id         = module.network.network_id
+#   service_account_id = module.iam.service_account_id
+#   security_group_id  = module.network.security_group_id
+#   subnet_id          = module.network.subnet_id
+#   provider_config    = var.yc_config
+# }
 
 
 resource "local_file" "variables_file" {
@@ -186,6 +193,21 @@ resource "null_resource" "import_variables" {
   provisioner "file" {
     source      = "${path.root}/row_data/btcusdt_4h.json"
     destination = "${local.inference_row_path}"
+  }
+
+  provisioner "file" {
+    source      = "${path.root}/k8s/service.yaml"
+    destination = "${local.inference_k8s_service}"
+  }
+
+  provisioner "file" {
+    source      = "${path.root}/k8s/deployment.yaml"
+    destination = "${local.inference_k8s_deployment}"
+  }
+
+  provisioner "file" {
+    source      = "${path.root}/k8s/ingress.yaml"
+    destination = "${local.inference_k8s_ingress}"
   }
 
 }

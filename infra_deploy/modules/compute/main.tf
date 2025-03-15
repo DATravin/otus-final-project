@@ -4,12 +4,17 @@ resource "yandex_compute_instance" "vm" {
   platform_id        = "standard-v3"
 
 
+
   provisioner "file" {
     content = templatefile("${path.module}/scripts/setup.sh", {
       private_key              = file(var.private_key_path)
       access_key               = var.access_key
       secret_key               = var.secret_key
       s3_bucket_name           = var.s3_bucket_name
+      zone                     = var.provider_config.zone
+      folder_id                = var.provider_config.folder_id
+      token                    = var.provider_config.token
+      cloud_id                 = var.provider_config.cloud_id
       }
     )
     destination = "/home/${var.instance_user}/setup.sh"
@@ -33,6 +38,21 @@ resource "yandex_compute_instance" "vm" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /home/${var.instance_user}/setup_libs.sh",
+      # "sudo /home/${var.instance_user}/setup.sh"
+    ]
+  }
+
+  provisioner "file" {
+    content = templatefile("${path.module}/scripts/setup_kuber.sh", {
+      private_key              = file(var.private_key_path)
+      }
+    )
+    destination = "/home/${var.instance_user}/setup_kuber.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /home/${var.instance_user}/setup_kuber.sh",
       # "sudo /home/${var.instance_user}/setup.sh"
     ]
   }
