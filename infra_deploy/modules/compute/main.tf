@@ -16,6 +16,7 @@ resource "yandex_compute_instance" "vm" {
       token                    = var.provider_config.token
       cloud_id                 = var.provider_config.cloud_id
       cluster_id               = var.cluster_id
+      docker_token             = var.docker_token
       }
     )
     destination = "/home/${var.instance_user}/setup.sh"
@@ -46,6 +47,8 @@ resource "yandex_compute_instance" "vm" {
   provisioner "file" {
     content = templatefile("${path.module}/scripts/setup_kuber.sh", {
       private_key              = file(var.private_key_path)
+      cluster_id               = var.cluster_id
+      docker_token             = var.docker_token
       }
     )
     destination = "/home/${var.instance_user}/setup_kuber.sh"

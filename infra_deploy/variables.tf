@@ -45,6 +45,10 @@ variable "private_key_path" {
   type = string
 }
 
+variable "docker_hub_token" {
+  type = string
+}
+
 # variable "cluster_id" {
 #   type = string
 # }

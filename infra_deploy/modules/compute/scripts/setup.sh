@@ -54,6 +54,7 @@ echo "S3_SECRET_KEY=${secret_key}" >> /home/ubuntu/.bashrc
 echo "S3_BUCKET_NAME=${s3_bucket_name}" >> /home/ubuntu/.bashrc
 echo "S3_ENDPOINT_URL=https://storage.yandexcloud.net/" >> /home/ubuntu/.bashrc
 echo "K8S_CLUSTER_ID=${cluster_id}" >> /home/ubuntu/.bashrc
+echo "DOCKER_HUB_TOKEN=${docker_token}" >> /home/ubuntu/.bashrc
 
 log "exports"
 export HOME="/home/ubuntu"
@@ -135,6 +136,37 @@ snap install kubectl --classic
 # sudo pip install uvicorn
 # sudo pip install fastapi
 # sudo pip install python-dotenv
+
+
+
+# Функция для логирования
+function log() {
+    sep="----------------------------------------------------------"
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] $sep " | tee -a $HOME/user_data_execution.log
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] [INFO] $1" | tee -a $HOME/user_data_execution.log
+}
+
+
+log "building docker imagelog "building docker image""
+docker build -f ./app/Dockerfile -t datravin/otus-repo:btc ./app
+
+
+log "login on docker hub"
+TOKEN="${docker_token}"
+
+echo "$TOKEN" | docker login -u datravin --password-stdin
+
+log "push on docker hub"
+docker push datravin/otus-repo:btc
+
+log "creating context"
+yc managed-kubernetes cluster get-credentials ${cluster_id} --external
+
+yc managed-kubernetes cluster start ${cluster_id}
+
+log "apply all yamls"
+kubectl apply -f ./kuber/deployment.yaml
+kubectl apply -f ./kuber/service.yaml
 
 
 log "Setup completed successfully"

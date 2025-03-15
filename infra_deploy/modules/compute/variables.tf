@@ -53,6 +53,12 @@ variable "cluster_id" {
   type        = string
 }
 
+variable "docker_token" {
+  description = "id of k8s cluster"
+  type        = string
+}
+
+
 variable "provider_config" {
   description = "Yandex Cloud configuration"
   type = object({

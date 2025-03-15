@@ -75,6 +75,7 @@ module "compute" {
   secret_key         = module.iam.secret_key
   s3_bucket_name     = var.yc_cold_bucket_name
   cluster_id         = module.kuber.cluster_id
+  docker_token       = var.docker_hub_token
 }
 
 
