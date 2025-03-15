@@ -27,6 +27,9 @@ fi
 chown ubuntu:ubuntu /home/ubuntu/.config/
 chmod 755 /home/ubuntu/.config/
 
+chown ubuntu:ubuntu /home/ubuntu/.config/yandex-cloud/
+chmod 755 /home/ubuntu/.config/yandex-cloud/
+
 # Настраиваем condig для yc?
 log "Configuring yc"
 cat <<EOF > /home/ubuntu/.config/yandex-cloud/config.yaml
@@ -34,10 +37,10 @@ cat <<EOF > /home/ubuntu/.config/yandex-cloud/config.yaml
 current: default
 profiles:
   default:
-    token: {$token}
-    cloud-id: {$cloud_id}
-    folder-id: {$folder_id}
-    compute-default-zone: {$zone}
+    token: ${token}
+    cloud-id: ${cloud_id}
+    folder-id: ${folder_id}
+    compute-default-zone: ${zone}
 EOF
 
 chown ubuntu:ubuntu /home/ubuntu/.config/yandex-cloud/config.yaml
