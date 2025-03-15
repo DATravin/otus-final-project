@@ -161,6 +161,9 @@ yc managed-kubernetes cluster start ${cluster_id}
 chown ubuntu:ubuntu /home/ubuntu/.kube/
 chmod -R 755 /home/ubuntu/.kube/
 
+chown ubuntu:ubuntu /home/ubuntu/.config/yandex-cloud/logs/
+chmod -R 755 /home/ubuntu/.config/yandex-cloud/logs/
+
 # log "apply all yamls"
 # kubectl apply -f ./kuber/deployment.yaml
 # kubectl apply -f ./kuber/service.yaml
