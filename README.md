@@ -134,6 +134,7 @@ kubectl get services --output=wide
 kubectl get nodes --output=wide
 --смотрим что собралось
 kubectl get podes --output=wide
+kubectl get pods --output=wide
 
 
 kind create cluster --config=cluster-config.yaml
@@ -239,3 +240,8 @@ c другой git'а заходим и проверяем
 curl http://localhost:8888/predict
 
 все должно отработать
+
+# cli
+
+сделать файл исполняемым
+sudo chmod +x login_process.sh
