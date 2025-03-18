@@ -22,7 +22,7 @@ resource "yandex_kubernetes_cluster" "k8s_cluster" {
   network_id = var.network_id
 
   master {
-    version = "1.28"
+    version = "1.29"
     zonal {
       zone      = var.provider_config.zone
       subnet_id = var.subnet_id
