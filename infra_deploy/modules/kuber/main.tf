@@ -49,7 +49,7 @@ resource "yandex_kubernetes_cluster" "k8s_cluster" {
 resource "yandex_kubernetes_node_group" "k8s_node_group" {
   cluster_id = yandex_kubernetes_cluster.k8s_cluster.id
   name       = "k8s-node-group"
-  version    = "1.28"
+  version    = "1.29"
 
   instance_template {
     platform_id = "standard-v2"
