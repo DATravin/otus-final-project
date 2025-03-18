@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  namespace: default # было так monitoring
+  labels:
+    release: prometheus
+  name: ml-app
+spec:
+  endpoints:
+
+  - path: /metrics
+    port: ml-app
+    scheme: http
+    interval: 30s
+
+  jobLabel: ml-app
+  namespaceSelector:
+    matchNames:
+    - default
+  selector:
+    matchLabels:
+      app: ml-app
